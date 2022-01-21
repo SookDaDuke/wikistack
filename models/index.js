@@ -9,7 +9,10 @@ const Page = db.define('page', {
   },
   slug: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isUrl: true
+    }
   },
   content: {
     type: Sequelize.TEXT,
@@ -27,7 +30,10 @@ const User = db.define('user', {
   },
   email: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   }
 })
 
