@@ -3,6 +3,9 @@ const morgan = require('morgan')
 const app = express()
 const layout = require('./views/layout')
 const { db, Page, User } = require('./models')
+const wikiRouter = require('./routes/wiki')
+const userRouter = require('./routes/users')
+
 
 const PORT = 1338;
 
@@ -17,13 +20,17 @@ const init = async () => {
 
 init()
 
-app.use(morgan("dev"));
+app.use(express.json())
 
-app.use(express.static(__dirname + "/public"));
+app.use(morgan("dev"));
 
 app.use(express.urlencoded({ extended: false }));
 
+app.use(express.static(__dirname + "/public"));
+
+app.use('/wiki', wikiRouter)
+
 app.get("/", (req, res) => {
-  res.send(layout(''));
+  res.redirect('/wiki');
 })
 
